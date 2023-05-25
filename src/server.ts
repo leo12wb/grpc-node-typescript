@@ -22,42 +22,52 @@ const server = new grpc.Server();
 
 server.addService(proto.SchoolSubjectService.service, {
   getAll: async (_:any, callback:any)  => {
-    const subject = await prisma.schoolSubject.findMany(); 
-    console.dir(subject)
-    callback(null, {subject});
+    try {
+      const subject = await prisma.schoolSubject.findMany(); 
+      console.dir(subject)
+      callback(null, {subject});
+    } catch (error) {}finally {}
   },
   getShow: async (call:any, callback:any) => {
-    const subject = await prisma.schoolSubject.findUnique({
-      where: {
-        id: Number(call.request.id),
-      },
-    });
-    console.dir(subject)
-    callback(null, subject);
+    try {
+      const subject = await prisma.schoolSubject.findUnique({
+        where: {
+          id: Number(call.request.id),
+        },
+      });
+      console.dir(subject)
+      callback(null, subject);
+    } catch (error) {}finally {}
   },
   insert: async (call:any, callback:any) =>{
-    const data = {name:call.request.name, description:call.request.description} as ISchoolSubject
-    const subject = await prisma.schoolSubject.create({ data });
-    console.dir(subject)
-    callback(null, subject);
+    try{
+      const data = {name:call.request.name, description:call.request.description} as ISchoolSubject
+      const subject = await prisma.schoolSubject.create({ data });
+      console.dir(subject)
+      callback(null, subject);
+    } catch (error) {}finally {}
   },
   update: async (call:any, callback:any) =>{
-    const data = {name:call.request.name, description:call.request.description} as ISchoolSubject
-    const subject = await prisma.schoolSubject.update({
-      data,
-      where: {
-        id: Number(call.request.id),
-      },
-    });
-    callback(null, subject);
+    try{
+      const data = {name:call.request.name, description:call.request.description} as ISchoolSubject
+      const subject = await prisma.schoolSubject.update({
+        data,
+        where: {
+          id: Number(call.request.id),
+        },
+      });
+      callback(null, subject);
+    } catch (error) {}finally {}
   },
   delete: async (call :any, callback :any) =>{
-    const subject = await prisma.schoolSubject.delete({
-      where: {
-        id: Number(call.request.id),
-      },
-    });
-    callback(null, subject);
+    try{
+      const subject = await prisma.schoolSubject.delete({
+        where: {
+          id: Number(call.request.id),
+        },
+      });
+      callback(null, subject);
+    } catch (error) {}finally {}
   },
 });
 
