@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+message SchoolSubject {
+    int32 id = 1;
+    string name = 2;
+    string description = 3;
+}
+
+message Empty {}
+
+message SchoolSubjectList {
+    repeated SchoolSubject subject = 1;
+}
+
+service SchoolSubjectService {
+    rpc GetAll  (Empty) returns (SchoolSubjectList) {}
+    rpc GetShow (SchoolSubject) returns (SchoolSubject) {}
+    rpc Insert  (SchoolSubject) returns (SchoolSubject) {}
+    rpc Update  (SchoolSubject) returns (SchoolSubject) {}
+    rpc Delete  (SchoolSubject) returns (SchoolSubject) {}
+    rpc SimularErro  (SchoolSubject) returns (SchoolSubjectList) {}
+}

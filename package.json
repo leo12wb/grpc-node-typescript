@@ -1,0 +1,25 @@
+{
+  "name": "grpc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
+    "serve": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
+    "build": "tsc",
+    "start": "node dist/src/server.js"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.8.14",
+    "@prisma/client": "^4.14.1",
+    "@types/node": "^20.2.3",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.9.5"
+  },
+  "keywords": [],
+  "author": "leonardo",
+  "license": "ISC",
+  "devDependencies": {
+    "prisma": "^4.14.1"
+  }
+}
