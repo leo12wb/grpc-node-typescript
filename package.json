@@ -2,12 +2,13 @@
   "name": "grpc",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
     "serve": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
     "build": "tsc",
-    "start": "node dist/src/server.js"
+    "start": "node dist/src/server.js",
+    "test": "ts-node-dev src/test/server.test.ts"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.8.14",

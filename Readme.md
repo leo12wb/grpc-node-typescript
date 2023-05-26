@@ -16,6 +16,12 @@ npm run build
 ```
 
 ```bash
+# Test
+npm test
+```
+
+
+```bash
 # Simular produção
 npm run start
 ```
