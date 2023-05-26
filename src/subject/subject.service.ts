@@ -1,11 +1,12 @@
 import { PrismaClient } from '@prisma/client'
+import { ISchoolSubject } from 'src/interfaces/ISchoolSubject';
 const prisma = new PrismaClient();
 const grpc = require("@grpc/grpc-js");
 
 export class Subject{
   constructor(){}
 
-  static isValidReq(data:any,callback:any){
+  static isValidReq(data:ISchoolSubject,callback:any){
     if(data.name.length < 3){
       console.dir('name must be higher than 3')
       return {message:'name must be higher than 3','erro': 1};
@@ -28,7 +29,7 @@ export class Subject{
     return res;
   }
 
-  static async insert(data: any, callback:any){
+  static async insert(data: ISchoolSubject, callback:any){
     let r = this.isValidReq(data,callback)
     if(r.erro == 1){
       return callback({
@@ -42,7 +43,7 @@ export class Subject{
     }
   }
 
-  static async update(data: any, id: any, callback:any){
+  static async update(data: ISchoolSubject, id: any, callback:any){
     let r = this.isValidReq(data,callback)
     if(r.erro == 1){
       return callback({

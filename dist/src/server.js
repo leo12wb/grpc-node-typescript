@@ -12,8 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const grpc = require("@grpc/grpc-js");
 const PROTO_PATH = "schoolSubjects.proto";
 var protoLoader = require("@grpc/proto-loader");
-const client_1 = require("@prisma/client");
-const prisma = new client_1.PrismaClient();
+const subject_service_1 = require("./subject/subject.service");
 const options = {
     keepCase: true,
     longs: String,
@@ -26,42 +25,49 @@ const proto = grpc.loadPackageDefinition(packageDefinition);
 const server = new grpc.Server();
 server.addService(proto.SchoolSubjectService.service, {
     getAll: (_, callback) => __awaiter(void 0, void 0, void 0, function* () {
-        const subject = yield prisma.schoolSubject.findMany();
-        console.dir(subject);
-        callback(null, { subject });
+        try {
+            const subject = yield subject_service_1.Subject.all();
+            console.dir(subject);
+            callback(null, { subject });
+        }
+        catch (error) { }
+        finally { }
     }),
     getShow: (call, callback) => __awaiter(void 0, void 0, void 0, function* () {
-        const subject = yield prisma.schoolSubject.findUnique({
-            where: {
-                id: Number(call.request.id),
-            },
-        });
-        console.dir(subject);
-        callback(null, subject);
+        try {
+            const subject = yield subject_service_1.Subject.show(call.request.id);
+            console.dir(subject);
+            callback(null, subject);
+        }
+        catch (error) { }
+        finally { }
     }),
     insert: (call, callback) => __awaiter(void 0, void 0, void 0, function* () {
-        const data = { name: call.request.name, description: call.request.description };
-        const subject = yield prisma.schoolSubject.create({ data });
-        console.dir(subject);
-        callback(null, subject);
+        try {
+            const data = { name: call.request.name, description: call.request.description };
+            const subject = yield subject_service_1.Subject.insert(data, callback);
+            console.dir(subject);
+            callback(null, subject);
+        }
+        catch (error) { }
+        finally { }
     }),
     update: (call, callback) => __awaiter(void 0, void 0, void 0, function* () {
-        const data = { name: call.request.name, description: call.request.description };
-        const subject = yield prisma.schoolSubject.update({
-            data,
-            where: {
-                id: Number(call.request.id),
-            },
-        });
-        callback(null, subject);
+        try {
+            const data = { name: call.request.name, description: call.request.description };
+            const subject = yield subject_service_1.Subject.update(data, call.request.id, callback);
+            callback(null, subject);
+        }
+        catch (error) { }
+        finally { }
     }),
     delete: (call, callback) => __awaiter(void 0, void 0, void 0, function* () {
-        const subject = yield prisma.schoolSubject.delete({
-            where: {
-                id: Number(call.request.id),
-            },
-        });
-        callback(null, subject);
+        try {
+            const subject = subject_service_1.Subject.delete(call.request.id);
+            callback(null, subject);
+        }
+        catch (error) { }
+        finally { }
     }),
 });
 server.bindAsync("127.0.0.1:50051", grpc.ServerCredentials.createInsecure(), (error, port) => {
