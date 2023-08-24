@@ -6,13 +6,6 @@ const grpc = require("@grpc/grpc-js");
 export class Subject{
   constructor(){}
 
-  static #isValidReq(data:ISchoolSubject,callback:any){
-    if(data.name.length < 3){
-      return {message:'name must be higher than 3','erro': 1};
-    }
-    return {message:'','erro': 0};
-  }
-
   static async all(){
     const res = await prisma.schoolSubject.findMany(); 
     return res;
@@ -67,5 +60,12 @@ export class Subject{
       },
     });
     return res;
+  }
+
+  static #isValidReq(data:ISchoolSubject,callback:any){
+    if(data.name.length < 3){
+      return {message:'name must be higher than 3','erro': 1};
+    }
+    return {message:'','erro': 0};
   }
 }
