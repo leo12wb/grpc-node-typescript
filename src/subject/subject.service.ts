@@ -8,9 +8,7 @@ export class Subject{
 
   static #isValidReq(data:ISchoolSubject,callback:any){
     if(data.name.length < 3){
-      console.dir('name must be higher than 3')
       return {message:'name must be higher than 3','erro': 1};
-      //throw new Error('name must be higher than 3')
     }
     return {message:'','erro': 0};
   }
